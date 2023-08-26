@@ -30,8 +30,19 @@ function loadPokemonItens(offset, limit) {
 }
 
 loadMoreButton.addEventListener('click', () => {
+
+    if (offset >= 151)
+        return;
+
     offset += limit;
-    loadPokemonItens(offset, 10);
+
+    if (offset + limit > 151) {
+        loadPokemonItens(offset, 151 - offset);
+        loadMoreButton.parentElement.removeChild(loadMoreButton);
+    }
+
+    else
+        loadPokemonItens(offset, 10);
 
 });
 
